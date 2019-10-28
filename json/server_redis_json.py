@@ -34,8 +34,21 @@ with socket.socket() as s:
         try: 
             if (action  == "put"):
                 if cache.exists(key):
+                    try:
+                        message = request["message"]
+                    except:
+                        response = {"status":"Bad Request"}
+                        sendMsg(conn, json.dumps(response))
+                        continue
+                    cache.set(key,json.dumps(request["message"]))
                     response = {"status":"Ok"}
                 else:
+                    try:
+                        message = request["message"]
+                    except:
+                        response = {"status":"Bad Request"}
+                        sendMsg(conn, json.dumps(response))
+                        continue
                     cache.set(key,json.dumps(request["message"]))
                     response = {"status":"Created"}
             elif (action  == "get"):
