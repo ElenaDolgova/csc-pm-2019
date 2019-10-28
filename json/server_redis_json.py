@@ -16,7 +16,7 @@ with socket.socket() as s:
     s.bind(('',65432))
     s.listen(1)
     conn, addr = s.accept()
-    cache = redis.Redis(host='localhost',port=6379)
+    cache = redis.Redis(host='redisserver',port=6379)
     cache.ping()
     print('connected:',addr)
     while True:
